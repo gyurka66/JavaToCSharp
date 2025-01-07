@@ -15,7 +15,6 @@ namespace JavaToCSharp.Tests
         [Fact]
         public void ShouldConvertBooleanAnd()
         {
-            BinaryExpressionVisitor visitor = new BinaryExpressionVisitor();
             var options = new JavaConversionOptions
             {
                 IncludeUsings = false,
@@ -25,7 +24,7 @@ namespace JavaToCSharp.Tests
             Expression left = new BooleanLiteralExpr(false);
             Expression right = new BooleanLiteralExpr(true);
             BinaryExpr expr = new BinaryExpr(left, right, BinaryExpr.Operator.AND);
-            var actual = BinaryExpressionVisitor.VisitExpression(c, expr);
+            var actual = ExpressionVisitor.VisitExpression(c, expr);
 
             var expected = SyntaxFactory.BinaryExpression(SyntaxKind.LogicalAndExpression, SyntaxFactory.LiteralExpression(SyntaxKind.FalseLiteralExpression), SyntaxFactory.LiteralExpression(SyntaxKind.TrueLiteralExpression));
             Assert.Equal(expected.ToFullString(), actual!.ToFullString());
